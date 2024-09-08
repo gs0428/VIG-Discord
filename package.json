@@ -1,6 +1,7 @@
 {
   "name": "VIG-Discord",
   "version": "1.0.0",
+  "type": "module",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,7 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^14.16.1"
+    "discord.js": "^14.16.1",
+    "dotenv": "^16.4.5"
   },
   "devDependencies": {
     "prettier": "3.3.3"
