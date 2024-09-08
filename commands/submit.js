@@ -11,6 +11,6 @@ export default {
   async execute(interaction) {
     const url = interaction.options.getString("url");
     const user = interaction.user.globalName;
-    await interaction.reply(`블로그 URL: ${url}, 제출자: ${user}`);
+    await interaction.reply(`제출자: ${user}\n블로그 URL: ${url}`);
   },
 };
