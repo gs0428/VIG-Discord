@@ -7,7 +7,10 @@ const InteractionCreate = (client) => {
     const command = client.commands.get(interaction.commandName);
 
     if (!command) {
-      console.error(`No command matching ${interaction.commandName} was found.`);
+      interaction.reply({
+        content: `${interaction.commandName} 명령어가 없어요.`,
+        ephemeral: true,
+      });
       return;
     }
 
@@ -17,12 +20,12 @@ const InteractionCreate = (client) => {
       console.error(error);
       if (interaction.replied || interaction.deferred) {
         await interaction.followUp({
-          content: "There was an error while executing this command!",
+          content: "명령어 실행 중에 오류가 발생했어요. 관리자에게 문의해주세요.",
           ephemeral: true,
         });
       } else {
         await interaction.reply({
-          content: "There was an error while executing this command!",
+          content: "명령어 실행 중에 오류가 발생했어요. 관리자에게 문의해주세요.",
           ephemeral: true,
         });
       }

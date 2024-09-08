@@ -1,6 +1,6 @@
 import { REST, Routes } from "discord.js";
 import { config } from "dotenv";
-import ping from "./ping.js";
+import submit from "./submit.js";
 
 config();
 
@@ -10,7 +10,7 @@ const token = process.env.DISCORD_TOKEN;
 
 const commands = [];
 
-commands.push(ping.data.toJSON());
+commands.push(submit.data.toJSON());
 
 const rest = new REST().setToken(token);
 

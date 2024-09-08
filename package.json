@@ -5,7 +5,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "format": "prettier . --write --cache"
+    "format": "prettier . --write --cache",
+    "deploy:commands": "node commands/deploy-commands.js"
   },
   "keywords": [],
   "author": "",

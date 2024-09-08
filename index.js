@@ -1,6 +1,6 @@
 import { Client, Collection, Events, GatewayIntentBits } from "discord.js";
 import { config } from "dotenv";
-import ping from "./commands/ping.js";
+import submit from "./commands/submit.js";
 import ClientReady from "./events/ready.js";
 import InteractionCreate from "./events/interactionCreate.js";
 
@@ -11,7 +11,7 @@ const token = process.env.DISCORD_TOKEN;
 
 client.commands = new Collection();
 
-client.commands.set("ping", ping);
+client.commands.set("submit", submit);
 
 ClientReady(client);
 
