@@ -1,4 +1,5 @@
 import { SlashCommandBuilder } from "discord.js";
+import { getValues, insertNewUser } from "../utils/spreadsheet.js";
 
 export default {
   data: new SlashCommandBuilder()
@@ -11,6 +12,12 @@ export default {
   async execute(interaction) {
     const url = interaction.options.getString("url");
     const user = interaction.user.globalName;
-    await interaction.reply(`제출자: ${user}\n블로그 URL: ${url}`);
+    const [users, penaltyCounts, submitDates] = await getValues();
+    const isExist = users.includes(user);
+
+    if (!isExist) {
+      await insertNewUser([users, penaltyCounts, submitDates], user);
+    }
+    return await interaction.reply(`제출자: ${user}\n블로그 URL: ${url}`);
   },
 };
