@@ -13,7 +13,6 @@ const auth = new GoogleAuth({
   scopes: "https://www.googleapis.com/auth/spreadsheets",
   keyFile,
 });
-
 const service = google.sheets({ version: "v4", auth });
 
 export const getValues = async () => {
@@ -30,22 +29,35 @@ export const getValues = async () => {
   }
 };
 
-export const insertNewUser = async (existData, newUser) => {
-  const updateValues = [];
-  const existDataLength = existData[0].length;
-  for (let i = 1; i < existDataLength; i++) {
-    updateValues.push([existData[0][i], existData[1][i], existData[2][i]]);
+export const insertNewUser = async (insertIndex, newUser) => {
+  try {
+    await service.spreadsheets.values.update({
+      spreadsheetId,
+      range: `${spreadsheetName}!A${insertIndex}`,
+      valueInputOption: "RAW",
+      requestBody: {
+        values: [[newUser, 0, formatToday()]],
+      },
+    });
+  } catch (err) {
+    throw err;
   }
-  await service.spreadsheets.values.update({
-    spreadsheetId,
-    range: spreadsheetName,
-    valueInputOption: "RAW",
-    requestBody: {
-      values: [
-        ["이름", "패널티 카운트", "제출 일자"],
-        ...updateValues,
-        [newUser, 0, formatToday()],
-      ],
-    },
-  });
+};
+
+export const updateValue = async (existData, existIndex) => {
+  const user = existData[0][existIndex];
+  const penaltyCount = existData[1][existIndex];
+
+  try {
+    await service.spreadsheets.values.update({
+      spreadsheetId,
+      range: `${spreadsheetName}!A${existIndex + 1}`,
+      valueInputOption: "RAW",
+      requestBody: {
+        values: [[user, penaltyCount, formatToday()]],
+      },
+    });
+  } catch (err) {
+    throw err;
+  }
 };
