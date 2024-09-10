@@ -12,13 +12,15 @@ export default {
   async execute(interaction) {
     const url = interaction.options.getString("url");
     const user = interaction.user.globalName;
+    // penaltyCounts와 submitDates는 추후
+    // 스케쥴러 적용 시 사용할 예정
     const [users, penaltyCounts, submitDates] = await getValues();
     const existIndex = users.findIndex((findUser) => findUser === user);
 
     if (existIndex === -1) {
       await insertNewUser(users.length + 1, user);
     } else {
-      await updateValue([users, penaltyCounts, submitDates], existIndex);
+      await updateValue(existIndex + 1);
     }
     return await interaction.reply(`제출자: ${user}\n블로그 URL: ${url}`);
   },

@@ -44,17 +44,14 @@ export const insertNewUser = async (insertIndex, newUser) => {
   }
 };
 
-export const updateValue = async (existData, existIndex) => {
-  const user = existData[0][existIndex];
-  const penaltyCount = existData[1][existIndex];
-
+export const updateValue = async (existIndex) => {
   try {
     await service.spreadsheets.values.update({
       spreadsheetId,
-      range: `${spreadsheetName}!A${existIndex + 1}`,
+      range: `${spreadsheetName}!C${existIndex}`,
       valueInputOption: "RAW",
       requestBody: {
-        values: [[user, penaltyCount, formatToday()]],
+        values: [[formatToday()]],
       },
     });
   } catch (err) {
