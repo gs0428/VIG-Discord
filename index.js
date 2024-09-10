@@ -1,8 +1,8 @@
 import { Client, Collection, Events, GatewayIntentBits } from "discord.js";
 import { config } from "dotenv";
 import submit from "./commands/submit.js";
-import ClientReady from "./events/ready.js";
-import InteractionCreate from "./events/interactionCreate.js";
+import clientReady from "./events/ready.js";
+import interactionCreate from "./events/interactionCreate.js";
 
 config();
 
@@ -13,8 +13,8 @@ client.commands = new Collection();
 
 client.commands.set("submit", submit);
 
-ClientReady(client);
+clientReady(client);
 
-InteractionCreate(client);
+interactionCreate(client);
 
 client.login(token);

@@ -1,6 +1,6 @@
 import { Events } from "discord.js";
 
-const InteractionCreate = (client) => {
+const interactionCreate = (client) => {
   client.on(Events.InteractionCreate, async (interaction) => {
     if (!interaction.isChatInputCommand()) return;
 
@@ -33,4 +33,4 @@ const InteractionCreate = (client) => {
   });
 };
 
-export default InteractionCreate;
+export default interactionCreate;
