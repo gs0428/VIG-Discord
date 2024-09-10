@@ -19,6 +19,7 @@
   "devDependencies": {
     "@google-cloud/local-auth": "2.1.0",
     "googleapis": "105",
+    "node-cron": "^3.0.3",
     "prettier": "3.3.3"
   }
 }
