@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from "discord.js";
-import { getValues, insertNewUser, updateValue } from "../utils/spreadsheet.js";
+import { getValues, insertNewUser, updateSubmitDate } from "../utils/spreadsheet.js";
 
 export default {
   data: new SlashCommandBuilder()
@@ -11,17 +11,18 @@ export default {
     }),
   async execute(interaction) {
     const url = interaction.options.getString("url");
-    const user = interaction.user.globalName;
-    // penaltyCounts와 submitDates는 추후
-    // 스케쥴러 적용 시 사용할 예정
-    const [users, penaltyCounts, submitDates] = await getValues();
-    const existIndex = users.findIndex((findUser) => findUser === user);
+    const nickname = interaction.member.nickname;
+    const userId = interaction.user.id;
+
+    const [users] = await getValues();
+    const existIndex = users.findIndex((id) => id === userId);
 
     if (existIndex === -1) {
-      await insertNewUser(users.length + 1, user);
+      await insertNewUser(users.length + 1, userId, nickname);
     } else {
-      await updateValue(existIndex + 1);
+      await updateSubmitDate(existIndex + 1);
     }
-    return await interaction.reply(`제출자: ${user}\n블로그 URL: ${url}`);
+
+    return await interaction.reply(`제출자: ${nickname}\n블로그 URL: ${url}`);
   },
 };

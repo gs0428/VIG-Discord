@@ -29,14 +29,14 @@ export const getValues = async () => {
   }
 };
 
-export const insertNewUser = async (insertIndex, newUser) => {
+export const insertNewUser = async (insertIndex, userId, nickname) => {
   try {
     await service.spreadsheets.values.update({
       spreadsheetId,
       range: `${spreadsheetName}!A${insertIndex}`,
       valueInputOption: "RAW",
       requestBody: {
-        values: [[newUser, 0, formatToday()]],
+        values: [[userId, nickname, 0, formatToday()]],
       },
     });
   } catch (err) {
@@ -44,14 +44,29 @@ export const insertNewUser = async (insertIndex, newUser) => {
   }
 };
 
-export const updateValue = async (existIndex) => {
+export const updateSubmitDate = async (existIndex) => {
   try {
     await service.spreadsheets.values.update({
       spreadsheetId,
-      range: `${spreadsheetName}!C${existIndex}`,
+      range: `${spreadsheetName}!D${existIndex}`,
       valueInputOption: "RAW",
       requestBody: {
         values: [[formatToday()]],
+      },
+    });
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const updatePenaltyCount = async (userIndex, penaltyCount) => {
+  try {
+    await service.spreadsheets.values.update({
+      spreadsheetId,
+      range: `${spreadsheetName}!C${userIndex}`,
+      valueInputOption: "RAW",
+      requestBody: {
+        values: [[penaltyCount + 1]],
       },
     });
   } catch (err) {
