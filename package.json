@@ -6,7 +6,10 @@
   "main": "index.js",
   "scripts": {
     "format": "prettier . --write --cache",
-    "start": "node commands/deploy-commands.js & node index.js"
+    "start": "node commands/deploy-commands.js & node index.js",
+    "start:prod": "pnpm dlx pm2 start index.js --name vig",
+    "stop:prod": "pnpm dlx pm2 stop vig",
+    "pm2:list": "pnpm dlx pm2 list"
   },
   "keywords": [],
   "author": "",
@@ -14,7 +17,8 @@
   "dependencies": {
     "discord.js": "^14.16.1",
     "dotenv": "^16.4.5",
-    "google-auth-library": "^9.14.1"
+    "google-auth-library": "^9.14.1",
+    "pm2": "^5.4.2"
   },
   "devDependencies": {
     "@google-cloud/local-auth": "2.1.0",
