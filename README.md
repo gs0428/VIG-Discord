@@ -18,7 +18,7 @@ VIG 디스코드 채널은 일주일에 한 번 글을 작성하여 글 쓰는 �
 
 ### commands
 
-- /submit <span style="color:grey;">url</span>
+- `/submit url`
   - url(필수): 제출할 블로그의 url
 
 ## 기술
