@@ -1,8 +1,9 @@
 import { Events } from "discord.js";
+import { noticeScheduler } from "../utils/scheduler.js";
 
 const clientReady = (client) => {
-  client.once(Events.ClientReady, (readyClient) => {
-    console.log(`Ready! Logged in as ${readyClient.user.tag}`);
+  client.once(Events.ClientReady, () => {
+    noticeScheduler(client).start();
   });
 };
 

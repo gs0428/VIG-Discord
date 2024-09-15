@@ -11,8 +11,5 @@ export const isInvalidSubmitDate = async (date) => {
   const today = new Date().setHours(0, 0, 0, 0);
   const lastSubmit = new Date(date).setHours(0, 0, 0, 0);
 
-  if (today - lastSubmit <= 604800000) {
-    return false;
-  }
-  return true;
+  return today - lastSubmit > 604800000;
 };

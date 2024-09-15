@@ -1,9 +1,9 @@
-import { Client, Collection, Events, GatewayIntentBits } from "discord.js";
+import { Client, Collection, GatewayIntentBits } from "discord.js";
 import { config } from "dotenv";
 import submit from "./commands/submit.js";
 import clientReady from "./events/ready.js";
 import interactionCreate from "./events/interactionCreate.js";
-import { scheduler } from "./utils/scheduler.js";
+import { penaltyScheduler } from "./utils/scheduler.js";
 
 config();
 
@@ -15,9 +15,8 @@ client.commands = new Collection();
 client.commands.set("submit", submit);
 
 clientReady(client);
-
 interactionCreate(client);
 
-scheduler().start();
+penaltyScheduler().start();
 
 client.login(token);
