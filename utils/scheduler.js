@@ -1,14 +1,15 @@
 import cron from "node-cron";
-import { updatePenaltyCount } from "./spreadsheet.js";
+import { getValues, updatePenaltyCount } from "./spreadsheet.js";
+import { isInvalidSubmitDate } from "./date.js";
 
 export const scheduler = () =>
   cron.schedule(
-    "* 0 * * Mon",
+    "0 0 * * Mon",
     async function checkSubmitState() {
-      const [, penaltyCounts, submitDates] = await getValues();
+      const [, , penaltyCounts, submitDates] = await getValues();
       const unsatisfiedUsers = [];
       for (let i = 1; i < submitDates.length; i++) {
-        if (isInvalidSubmitDate(submitDates[i])) {
+        if (await isInvalidSubmitDate(submitDates[i])) {
           unsatisfiedUsers.push(i);
         }
       }

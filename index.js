@@ -18,6 +18,6 @@ clientReady(client);
 
 interactionCreate(client);
 
-scheduler();
+scheduler().start();
 
 client.login(token);
