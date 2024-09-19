@@ -36,7 +36,7 @@ export const noticeScheduler = (client) => {
       const unsatisfiedUsers = [];
 
       for (let i = 1; i < submitDates.length; i++) {
-        if (await isInvalidSubmitDate(submitDates[i])) {
+        if (await isInvalidSubmitDate(submitDates[i], true)) {
           unsatisfiedUsers.push(`<@${ids[i]}>`);
         }
       }

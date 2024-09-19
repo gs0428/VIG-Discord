@@ -7,9 +7,15 @@ export const formatToday = () => {
   return `${year}.${month}.${day}`;
 };
 
-export const isInvalidSubmitDate = async (date) => {
+const WEEK = 604800000;
+const DAY = 86400000;
+
+export const isInvalidSubmitDate = async (date, long = false) => {
   const today = new Date().setHours(0, 0, 0, 0);
   const lastSubmit = new Date(date).setHours(0, 0, 0, 0);
 
-  return today - lastSubmit > 604800000;
+  let time = WEEK;
+  if (long) time = WEEK * 2 - DAY;
+
+  return today - lastSubmit > time;
 };
