@@ -10,12 +10,12 @@ export const formatToday = () => {
 const WEEK = 604800000;
 const DAY = 86400000;
 
-export const isInvalidSubmitDate = async (date, long = false) => {
+export const isInvalidSubmitDate = async (date, sunday = false) => {
   const today = new Date().setHours(0, 0, 0, 0);
   const lastSubmit = new Date(date).setHours(0, 0, 0, 0);
 
   let time = WEEK;
-  if (long) time = WEEK * 2 - DAY;
+  if (sunday) time = WEEK - DAY;
 
   return today - lastSubmit > time;
 };

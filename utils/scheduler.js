@@ -43,7 +43,8 @@ export const noticeScheduler = (client) => {
 
       const mentionUsers = unsatisfiedUsers.join(", ");
 
-      noticeChannel.send(`${mentionUsers}\n블로그 제출 마감 하루 전이에요.`);
+      unsatisfiedUsers.length !== 0 &&
+        noticeChannel.send(`${mentionUsers}\n블로그 제출 마감 하루 전이에요.`);
     },
     { timezone: "Asia/Seoul" }
   );
