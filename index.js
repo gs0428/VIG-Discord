@@ -1,9 +1,10 @@
-import { Client, Collection, GatewayIntentBits } from "discord.js";
 import { config } from "dotenv";
-import submit from "./commands/submit.js";
-import clientReady from "./events/ready.js";
-import interactionCreate from "./events/interactionCreate.js";
+import { Client, Collection, GatewayIntentBits } from "discord.js";
+
 import { penaltyScheduler } from "./utils/scheduler.js";
+import interactionCreate from "./events/interactionCreate.js";
+import clientReady from "./events/ready.js";
+import * as commands from "./commands/index.js";
 
 config();
 
@@ -12,7 +13,9 @@ const token = process.env.DISCORD_TOKEN;
 
 client.commands = new Collection();
 
-client.commands.set("submit", submit);
+Object.keys(commands).forEach((key) => {
+  client.commands.set(commands[key].data.name, commands[key]);
+});
 
 clientReady(client);
 interactionCreate(client);
