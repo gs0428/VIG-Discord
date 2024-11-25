@@ -9,11 +9,14 @@ export const penaltyScheduler = () => {
   return cron.schedule(
     "0 0 * * 1",
     async function checkSubmitState() {
-      const [, , penaltyCounts, submitDates] = await getValues();
+      const [, , penaltyCounts, submitDates, activateStates] = await getValues();
       const unsatisfiedUsers = [];
       for (let i = 1; i < submitDates.length; i++) {
-        if (await isInvalidSubmitDate(submitDates[i])) {
-          unsatisfiedUsers.push(i);
+        const isInvalidSubmit = await isInvalidSubmitDate(submitDates[i]);
+        const isActivate = activateStates[i] === "T";
+
+        if (isInvalidSubmit && isActivate) {
+          unsatisfiedUsers.push(`<@${ids[i]}>`);
         }
       }
 
@@ -32,11 +35,14 @@ export const noticeScheduler = (client) => {
   return cron.schedule(
     "0 0 * * 0",
     async function checkSubmitState() {
-      const [ids, , , submitDates] = await getValues();
+      const [ids, , , submitDates, activateStates] = await getValues();
       const unsatisfiedUsers = [];
 
       for (let i = 1; i < submitDates.length; i++) {
-        if (await isInvalidSubmitDate(submitDates[i], true)) {
+        const isInvalidSubmit = await isInvalidSubmitDate(submitDates[i], true);
+        const isActivate = activateStates[i] === "T";
+
+        if (isInvalidSubmit && isActivate) {
           unsatisfiedUsers.push(`<@${ids[i]}>`);
         }
       }

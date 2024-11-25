@@ -44,7 +44,7 @@ export const insertNewUser = async (insertIndex, userId, nickname) => {
   }
 };
 
-export const updateStatus = async (existIndex, status) => {
+export const updateActiveState = async (existIndex, status) => {
   try {
     await service.spreadsheets.values.update({
       spreadsheetId,

@@ -1,6 +1,6 @@
 import { Events } from "discord.js";
 import { config } from "dotenv";
-import { getValues, updateStatus } from "../utils/spreadsheet.js";
+import { getValues, updateActiveState } from "../utils/spreadsheet.js";
 
 config();
 
@@ -9,8 +9,9 @@ const messageReactionRemove = (client) => {
     const channel = process.env.DISCORD_README_CHANNEL_ID;
     const messageId = process.env.DISCORD_README_MESSAGE_ID;
 
-    if (channel !== reaction.message.channel.id || messageId !== reaction.message.id || user.bot)
+    if (channel !== reaction.message.channel.id || messageId !== reaction.message.id || user.bot) {
       return;
+    }
 
     const roleId = process.env.DISCORD_ROLE_ID;
     const guild = reaction.message.guild;
@@ -22,7 +23,7 @@ const messageReactionRemove = (client) => {
 
       const [users] = await getValues();
       const index = users.findIndex((id) => id === user.id);
-      await updateStatus(index + 1, "N");
+      await updateActiveState(index + 1, "N");
     }
   });
 };
