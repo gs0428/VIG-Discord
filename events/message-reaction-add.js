@@ -1,5 +1,6 @@
 import { Events } from "discord.js";
 import { config } from "dotenv";
+import { getValues, insertNewUser, updateStatus } from "../utils/spreadsheet.js";
 
 config();
 
@@ -12,7 +13,17 @@ const messageReactionAdd = (client) => {
 
     const guild = reaction.message.guild;
     const member = await guild.members.fetch(user.id);
+
     member.roles.add(process.env.DISCORD_ROLE_ID);
+
+    const [users] = await getValues();
+    const existIndex = users.findIndex((id) => id === user.id);
+
+    if (existIndex === -1) {
+      await insertNewUser(users.length + 1, user.id, user.username);
+    } else {
+      await updateStatus(existIndex + 1, "Y");
+    }
   });
 };
 

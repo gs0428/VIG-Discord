@@ -36,7 +36,22 @@ export const insertNewUser = async (insertIndex, userId, nickname) => {
       range: `${spreadsheetName}!A${insertIndex}`,
       valueInputOption: "RAW",
       requestBody: {
-        values: [[userId, nickname, 0, formatToday()]],
+        values: [[userId, nickname, 0, formatToday(), "Y"]],
+      },
+    });
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const updateStatus = async (existIndex, status) => {
+  try {
+    await service.spreadsheets.values.update({
+      spreadsheetId,
+      range: `${spreadsheetName}!E${existIndex}`,
+      valueInputOption: "RAW",
+      requestBody: {
+        values: [[status]],
       },
     });
   } catch (err) {

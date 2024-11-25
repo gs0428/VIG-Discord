@@ -1,5 +1,6 @@
 import { Events } from "discord.js";
 import { config } from "dotenv";
+import { getValues, updateStatus } from "../utils/spreadsheet.js";
 
 config();
 
@@ -18,6 +19,10 @@ const messageReactionRemove = (client) => {
 
     if (reaction.emoji.name === "🥯" && member.roles.cache.has(role.id)) {
       await member.roles.remove(role);
+
+      const [users] = await getValues();
+      const index = users.findIndex((id) => id === user.id);
+      await updateStatus(index + 1, "N");
     }
   });
 };
