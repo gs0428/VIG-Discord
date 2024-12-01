@@ -13,7 +13,7 @@ export const penaltyScheduler = () => {
       const unsatisfiedUsers = [];
       for (let i = 1; i < submitDates.length; i++) {
         const isInvalidSubmit = await isInvalidSubmitDate(submitDates[i]);
-        const isActivate = activateStates[i] === "T";
+        const isActivate = activateStates[i] === "Y";
 
         if (isInvalidSubmit && isActivate) {
           unsatisfiedUsers.push(`<@${ids[i]}>`);
@@ -40,7 +40,7 @@ export const noticeScheduler = (client) => {
 
       for (let i = 1; i < submitDates.length; i++) {
         const isInvalidSubmit = await isInvalidSubmitDate(submitDates[i], true);
-        const isActivate = activateStates[i] === "T";
+        const isActivate = activateStates[i] === "Y";
 
         if (isInvalidSubmit && isActivate) {
           unsatisfiedUsers.push(`<@${ids[i]}>`);
