@@ -3,9 +3,7 @@ import { getSchedulerInstance } from "../utils/scheduler.js";
 import { isAdmin } from "../utils/user.js";
 
 export default {
-  data: new SlashCommandBuilder()
-    .setName("start")
-    .setDescription("디스코드 봇을 다시 동작시킵니다."),
+  data: new SlashCommandBuilder().setName("start").setDescription("스케줄링을 다시 시작합니다."),
   async execute(interaction) {
     const userId = interaction.user.id;
 
@@ -21,7 +19,7 @@ export default {
 
     if (status === "running") {
       return await interaction.reply({
-        content: "디스코드 봇이 이미 동작 중이에요.",
+        content: "스케줄링이 이미 진행 중이에요.",
         ephemeral: true,
       });
     }
@@ -29,7 +27,7 @@ export default {
     scheduler.start();
 
     return await interaction.reply({
-      content: "디스코드 봇을 동작시켰어요.",
+      content: "스케줄링을 시작했어요.",
       ephemeral: true,
     });
   },

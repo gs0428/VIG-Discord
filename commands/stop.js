@@ -3,7 +3,7 @@ import { getSchedulerInstance } from "../utils/scheduler.js";
 import { isAdmin } from "../utils/user.js";
 
 export default {
-  data: new SlashCommandBuilder().setName("stop").setDescription("디스코드 봇을 일시정지 합니다."),
+  data: new SlashCommandBuilder().setName("stop").setDescription("스케줄링을 일시정지 합니다."),
   async execute(interaction) {
     const userId = interaction.user.id;
 
@@ -19,7 +19,7 @@ export default {
 
     if (status === "paused") {
       return await interaction.reply({
-        content: "디스코드 봇이 이미 일시정지 상태에요.",
+        content: "스케줄링이 이미 일시정지 상태에요.",
         ephemeral: true,
       });
     }
@@ -27,7 +27,7 @@ export default {
     scheduler.stop();
 
     return await interaction.reply({
-      content: "디스코드 봇이 일시정지 됐어요.",
+      content: "스케줄링이 일시정지 됐어요.",
       ephemeral: true,
     });
   },
