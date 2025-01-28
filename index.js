@@ -1,7 +1,7 @@
 import { config } from "dotenv";
 import { Client, Collection, GatewayIntentBits, Partials } from "discord.js";
 
-import { penaltyScheduler } from "./utils/scheduler.js";
+import { getSchedulerInstance } from "./utils/scheduler.js";
 
 import * as commands from "./commands/index.js";
 import * as events from "./events/index.js";
@@ -29,6 +29,7 @@ Object.keys(events).forEach((key) => {
   events[key](client);
 });
 
-penaltyScheduler().start();
+const scheduler = getSchedulerInstance(client);
+scheduler.start();
 
 client.login(token);

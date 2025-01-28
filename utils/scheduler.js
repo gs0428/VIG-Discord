@@ -2,8 +2,18 @@ import cron from "node-cron";
 import { getValues, updatePenaltyCount } from "./spreadsheet.js";
 import { isInvalidSubmitDate } from "./date.js";
 import { config } from "dotenv";
+import Scheduler from "../class/scheduler.js";
 
 config();
+
+let schedulerInstance = null;
+
+export const getSchedulerInstance = (client) => {
+  if (!schedulerInstance) {
+    schedulerInstance = new Scheduler(client);
+  }
+  return schedulerInstance;
+};
 
 export const penaltyScheduler = () => {
   return cron.schedule(
