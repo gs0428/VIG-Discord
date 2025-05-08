@@ -17,8 +17,12 @@ export const getSchedulerInstance = (client) => {
 
 export const penaltyScheduler = () => {
   return cron.schedule(
-    "0 0 * * 1/2",
+    "0 0 * * 1",
     async function checkSubmitState() {
+      const currentDate = new Date();
+      const weekNumber = Math.floor(currentDate.getDate() / 7);
+      if (weekNumber % 2 !== 0) return;
+
       const [ids, , penaltyCounts, submitDates, activateStates] = await getValues();
       const unsatisfiedUsers = [];
       for (let i = 1; i < submitDates.length; i++) {
@@ -42,8 +46,12 @@ export const noticeScheduler = (client) => {
   const noticeChannel = client.channels.cache.get(noticeChannelId);
 
   return cron.schedule(
-    "0 0 * * 0/2",
+    "0 0 * * 0",
     async function checkSubmitState() {
+      const currentDate = new Date();
+      const weekNumber = Math.floor(currentDate.getDate() / 7);
+      if (weekNumber % 2 !== 0) return;
+
       const [ids, , , submitDates, activateStates] = await getValues();
       const unsatisfiedUsers = [];
 
