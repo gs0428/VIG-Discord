@@ -17,7 +17,7 @@ export const getSchedulerInstance = (client) => {
 
 export const penaltyScheduler = () => {
   return cron.schedule(
-    "0 0 * * 1",
+    "0 0 * * 1/2",
     async function checkSubmitState() {
       const [ids, , penaltyCounts, submitDates, activateStates] = await getValues();
       const unsatisfiedUsers = [];
@@ -42,7 +42,7 @@ export const noticeScheduler = (client) => {
   const noticeChannel = client.channels.cache.get(noticeChannelId);
 
   return cron.schedule(
-    "0 0 * * 0",
+    "0 0 * * 0/2",
     async function checkSubmitState() {
       const [ids, , , submitDates, activateStates] = await getValues();
       const unsatisfiedUsers = [];
