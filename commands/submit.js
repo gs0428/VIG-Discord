@@ -38,6 +38,6 @@ export default {
       await updateSubmitDate(existIndex + 1);
     }
 
-    return await interaction.reply(`제출자: ${nickname}\n블로그 URL: ${url}`);
+    return await interaction.reply(`제출자: ${nickname || "🥯익명의 베이글"}\n블로그 URL: ${url}`);
   },
 };
