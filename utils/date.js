@@ -7,15 +7,15 @@ export const formatToday = () => {
   return `${year}.${month}.${day}`;
 };
 
-const WEEK = 604800000;
+const TWO_WEEKS = 1209600000;
 const DAY = 86400000;
 
 export const isInvalidSubmitDate = async (date, sunday = false) => {
   const today = new Date().setHours(0, 0, 0, 0);
   const lastSubmit = new Date(date).setHours(0, 0, 0, 0);
 
-  let time = WEEK;
-  if (sunday) time = WEEK - DAY;
+  let time = TWO_WEEKS;
+  if (sunday) time = TWO_WEEKS - DAY;
 
   return today - lastSubmit > time;
 };
